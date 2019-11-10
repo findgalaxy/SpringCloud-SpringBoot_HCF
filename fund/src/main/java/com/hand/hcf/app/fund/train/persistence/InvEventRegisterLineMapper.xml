@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hand.hcf.app.fund.train.persistence.InvEventRegisterLineMapper">
+
+    <select id="selectByInvEventHeaderId" resultType="com.hand.hcf.app.fund.train.domain.InvEventRegisterLine">
+
+        SELECT *
+        FROM inv_event_register_line
+        WHERE inv_event_header_id=#{id}
+    </select>
+
+    <delete id="deleteAllLinesByHeaderId" >
+        DELETE FROM inv_event_register_line
+        WHERE inv_event_header_id=#{headerId}
+    </delete>
+
+</mapper>

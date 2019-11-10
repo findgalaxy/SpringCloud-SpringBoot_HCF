@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+  liquibase:
+    change-log: classpath:db/liquibase/master.xml
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 10000
+        read-timeout: 10000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+hcf:
+  swagger:
+    title: 资金模块API
+    description: 资金模块
+#  application:
+#    base:
+#      url: http://101.132.162.31:9081/base
+#    mdata:
+#      url: http://101.132.162.31:9081/mdata
+#    workflow:
+#      url: http://101.132.162.31:9081/workflow
+#    payment:
+#      url: http://101.132.162.31:9081/payment

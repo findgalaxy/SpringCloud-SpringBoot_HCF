@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2017. Shanghai Zhenhui Information Technology Co,. ltd.
+  ~ All rights are reserved.
+  -->
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+    <property name="amount" value="decimal(20,2)"/>
+
+    <changeSet id="train_201908220933001" author="meng.li">
+
+        <createTable tableName="inv_type_maintain" remarks="投资类型维护表">
+            <column name="id" type="bigint" autoIncrement="1">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_inv_type_maintain"/>
+            </column>
+            <column name="set_of_books_id" type="bigint" remarks="账套ID"/>
+            <column name="tenant_id" type="bigint" remarks="租户ID"/>
+
+            <column name="inv_type_code" type="varchar(100)" remarks="投资类型代码"/>
+            <column name="inv_type_name" type="varchar(100)" remarks="投资类型名称"/>
+            <column name="start_status" type="int" remarks="启用状态"/>
+
+            <column name="version_number" type="int" remarks="版本号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValue="${now}" remarks="创建日期">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="bigint" remarks="创建用户ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated_date" type="timestamp" defaultValue="${now}" remarks="最后更新日期">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated_by" type="bigint" remarks="最后更新用户ID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="train_201908220943002" author="meng.li">
+
+        <createTable tableName="inv_event_register_header" remarks="投资事件登记头表">
+            <column name="id" type="bigint" autoIncrement="1">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_inv_event_register_header"/>
+            </column>
+            <column name="set_of_books_id" type="bigint" remarks="账套ID"/>
+            <column name="tenant_id" type="bigint" remarks="租户ID"/>
+
+            <column name="inv_number" type="varchar(30)" remarks="投资编号"/>
+            <column name="inv_type_id" type="bigint" remarks="投资类型ID"/>
+            <column name="inv_product_name" type="varchar(300)" remarks="投资产品名称"/>
+            <column name="equity_company_id" type="bigint" remarks="权益公司ID"/>
+            <column name="equity_unit_id" type="bigint" remarks="权益部门ID"/>
+            <column name="other_company" type="varchar(100)" remarks="对方公司"/>
+            <column name="management_id" type="bigint" remarks="管理员ID"/>
+            <column name="maintenance_date" type="timestamp" remarks="维护日期"/>
+            <column name="amount" type="${amount}" remarks="金额"/>
+            <column name="inv_note" type="varchar(300)" remarks="投资备注"/>
+            <column name="attachment_info" type="varchar(300)" remarks="附件信息"/>
+            <column name="bill_status" type="int" remarks="单据状态"/>
+
+            <column name="version_number" type="int" remarks="版本号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValue="${now}" remarks="创建日期">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="bigint" remarks="创建用户ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated_date" type="timestamp" defaultValue="${now}" remarks="最后更新日期">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated_by" type="bigint" remarks="最后更新用户ID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="train_201908221521003" author="meng.li">
+
+        <createTable tableName="inv_event_register_line" remarks="投资事件登记行表">
+            <column name="id" type="bigint" autoIncrement="1">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_inv_event_register_line"/>
+            </column>
+            <column name="set_of_books_id" type="bigint" remarks="账套ID"/>
+            <column name="tenant_id" type="bigint" remarks="租户ID"/>
+
+            <column name="inv_event_header_id" type="bigint" remarks="投资事件头ID"/>
+            <column name="start_date" type="timestamp" remarks="开始时间"/>
+            <column name="end_date" type="timestamp" remarks="结束时间"/>
+            <column name="inv_amount" type="${amount}" remarks="投资金额"/>
+            <column name="inv_currency_code" type="varchar(100)" remarks="投资币种"/>
+            <column name="inv_horizon" type="timestamp" remarks="投资期限"/>
+            <column name="exchange_rate" type="double" remarks="汇率"/>
+            <column name="reciprocal_account_number" type="varchar(30)" remarks="对方账号"/>
+            <column name="reciprocal_account" type="varchar(30)" remarks="对方账户"/>
+            <column name="reciprocal_bank_number" type="bigint" remarks="对方银行联行号"/>
+            <column name="yield_rate" type="double" remarks="收益率"/>
+            <column name="interest_settlement_frequency" type="int" remarks="结息频率"/>
+            <column name="interest_settlement_date" type="timestamp" remarks="结息日"/>
+            <column name="time_limit_range" type="timestamp" remarks="期限范围"/>
+            <column name="interest_accrual_rules" type="varchar(300)" remarks="计息规则"/>
+            <column name="due_bank" type="varchar(100)" remarks="收款银行"/>
+            <column name="due_account" type="varchar(30)" remarks="收款账号"/>
+            <column name="expiration_reminder" type="boolean" remarks="是否到期提醒"/>
+            <column name="earnings_reminder" type="boolean" remarks="是否收益提醒"/>
+            <column name="contact_person" type="varchar(30)" remarks="对方联系人"/>
+            <column name="contact_phone" type="varchar(30)" remarks="联系电话"/>
+            <column name="address" type="varchar(300)" remarks="地址"/>
+            <column name="contract_number" type="varchar(300)" remarks="合同编号"/>
+            <column name="remark_info" type="varchar(300)" remarks="备注"/>
+
+            <column name="version_number" type="int" remarks="版本号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValue="${now}" remarks="创建日期">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="bigint" remarks="创建用户ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated_date" type="timestamp" defaultValue="${now}" remarks="最后更新日期">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated_by" type="bigint" remarks="最后更新用户ID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

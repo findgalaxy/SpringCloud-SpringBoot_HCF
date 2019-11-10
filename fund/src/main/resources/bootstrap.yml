@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: fund
+apollo:
+  bootstrap:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+app:
+  id: fund
+
